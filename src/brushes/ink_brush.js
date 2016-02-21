@@ -6,21 +6,22 @@
 (function(fabric){
 
   fabric.InkBrush = fabric.util.createClass(fabric.BaseBrush, {
+
     color: "#000000",
     opacity: 1,
-    inkAmount: 7,
-    width: 10,
+    width: 30,
 
-    _point: null,
-    _lastPoint: null,
-    _drips: [],
-    _dripCount: 0,
-    _strokes: null,
-    _strokeId: null,
-    _strokeCount: 0,
     _baseWidth: 20,
-    strokeNum: 40,
-    range: 10,
+    _dripCount: 0,
+    _drips: [],
+    _inkAmount: 7,
+    _lastPoint: null,
+    _point: null,
+    _range: 10,
+    _strokeCount: 0,
+    _strokeId: null,
+    _strokeNum: 40,
+    _strokes: null,
 
     initialize: function(canvas, opt) {
       opt = opt || {};
@@ -29,7 +30,6 @@
       this.width = opt.width || canvas.freeDrawingBrush.width;
       this.color = opt.color || canvas.freeDrawingBrush.color;
       this.opacity = opt.opacity || canvas.contextTop.globalAlpha;
-      this.strokeNum = opt.strokeNum || this.strokeNum;
 
       this._point = new fabric.Point();
     },
@@ -62,7 +62,7 @@
       }
 
       if (distance > 30) {
-        this.drawSplash(point, this.inkAmount);
+        this.drawSplash(point, this._inkAmount);
       } else if (distance < 10 && fabric.util.getRandom() < 0.085 && this._dripCount) {
         this._drips.push(new fabric.Drip(this.canvas.contextTop, point, fabric.util.getRandom(this.size * 0.25, this.size * 0.1), this.color, this._strokeId));
         this._dripCount--;
@@ -122,12 +122,12 @@
 
       point = this.setPointer(pointer);
       strokes = this._strokes = [];
-      this.size = this.width / 50 + this._baseWidth;
-      this.strokeNum = this.width * 2;
-      this.range = this.width / 2;
+      this.size = this.width / 5 + this._baseWidth;
+      this._strokeNum = this.size;
+      this._range = this.size / 2;
 
-      for (i = 0, len = this.strokeNum; i < len; i++) {
-        strokes[i] = new fabric.Stroke(this.canvas.contextTop, point, this.range, this.color, this.width, this.inkAmount);
+      for (i = 0, len = this._strokeNum; i < len; i++) {
+        strokes[i] = new fabric.Stroke(this.canvas.contextTop, point, this._range, this.color, this.width, this._inkAmount);
       }
     }
   });

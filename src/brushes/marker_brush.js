@@ -7,13 +7,15 @@
 
   fabric.MarkerBrush = fabric.util.createClass(fabric.BaseBrush, {
 
-    width: 10,
     color: "#000000",
     opacity: 1,
-    _size: 0,
+    width: 30,
+
+    _baseWidth: 10,
+    _lastPoint: null,
     _lineWidth: 3,
     _point: null,
-    _lastPoint: null,
+    _size: 0,
 
     initialize: function(canvas, opt) {
       opt = opt || {};
@@ -37,10 +39,9 @@
     },
 
     _render: function(pointer) {
-      var ctx, lastPoint, lineWidthDiff, i;
+      var ctx, lineWidthDiff, i;
 
       ctx = this.canvas.contextTop;
-      lastPoint = this._lastPoint;
 
       ctx.beginPath();
 
@@ -48,7 +49,7 @@
         lineWidthDiff = (this._lineWidth - 1) * i;
 
         ctx.globalAlpha = 0.8 * this.opacity;
-        ctx.moveTo(lastPoint.x + lineWidthDiff, lastPoint.y + lineWidthDiff);
+        ctx.moveTo(this._lastPoint.x + lineWidthDiff, this._lastPoint.y + lineWidthDiff);
         ctx.lineTo(pointer.x + lineWidthDiff, pointer.y + lineWidthDiff);
         ctx.stroke();
       }
@@ -60,7 +61,7 @@
       this._lastPoint = pointer;
       this.canvas.contextTop.strokeStyle = this.color;
       this.canvas.contextTop.lineWidth = this._lineWidth;
-      this._size = this.width / 3 + 20;
+      this._size = this.width + this._baseWidth;
     },
 
     onMouseMove: function(pointer) {

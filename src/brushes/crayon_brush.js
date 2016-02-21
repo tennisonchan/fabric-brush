@@ -7,26 +7,25 @@
 
   fabric.CrayonBrush = fabric.util.createClass(fabric.BaseBrush, {
 
-    size: 0,
-    opacity: 0.6,
     color: "#000000",
+    opacity: 0.6,
+    width: 30,
+
+    _baseWidth: 20,
+    _inkAmount: 10,
+    _latestStrokeLength: 0,
     _point: null,
-    inkAmount: 10,
-    sep: 5,
+    _sep: 5,
+    _size: 0,
 
     initialize: function(canvas, opt) {
       opt = opt || {};
 
       this.canvas = canvas;
       this.width = opt.width || canvas.freeDrawingBrush.width;
-
-      this._point = new fabric.Point(0, 0);
       this.color = opt.color || canvas.freeDrawingBrush.color;
       this.opacity = opt.opacity || canvas.contextTop.globalAlpha;
-      this.inkAmount = opt.inkAmount || this.inkAmount;
-
-      this._latest = null;
-      this._latestStrokeLength = 0;
+      this._point = new fabric.Point(0, 0);
     },
 
     changeColor: function(color){
@@ -39,7 +38,7 @@
 
     onMouseDown: function(pointer){
       this.canvas.contextTop.globalAlpha = this.opacity;
-      this.size = this.width / 4 + 20;
+      this._size = this.width / 2 + this._baseWidth;
       this.set(pointer);
     },
 
@@ -47,7 +46,6 @@
       this.update(pointer);
       this.draw(this.canvas.contextTop);
     },
-
 
     onMouseUp: function(pointer){
     },
@@ -70,14 +68,14 @@
       var i, j, p, r, c, x, y, w, h, v, s, stepNum, dotSize, dotNum, range;
 
       v = this._point.subtract(this._latest);
-      s = Math.ceil(this.size / 2);
+      s = Math.ceil(this._size / 2);
       stepNum = Math.floor(v.distanceFrom({ x: 0, y: 0 }) / s) + 1;
       v.normalize(s);
 
-      dotSize = this.sep * fabric.util.clamp(this.inkAmount / this._latestStrokeLength * 3, 1, 0.5);
-      dotNum = Math.ceil(this.size * this.sep);
+      dotSize = this._sep * fabric.util.clamp(this._inkAmount / this._latestStrokeLength * 3, 1, 0.5);
+      dotNum = Math.ceil(this._size * this._sep);
 
-      range = this.size / 2;
+      range = this._size / 2;
 
       ctx.save();
       ctx.fillStyle = this.color;
