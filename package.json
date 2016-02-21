@@ -1,0 +1,49 @@
+{
+  "name": "fabric-brush",
+  "version": "0.0.1",
+  "description": "A variety of brushes based on an awesome HTML5 canvas framework fabric.js",
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "lint": "jshint */**.js",
+    "prebuild": "npm run clean -s && mkdir -p dist",
+    "prebuild:scripts": "npm run lint",
+    "build:scripts": "browserify ./src/**/*.js --outfile dist/fabric-brush.js",
+    "build:scripts:min": "browserify ./src/**/*.js -d -p [minifyify --no-map] --outfile dist/fabric-brush.min.js",
+    "build": "npm run build:scripts && npm run build:scripts:min"
+  },
+  "keywords": [
+    "fabric",
+    "fabric.js",
+    "brush",
+    "brushes",
+    "canvas",
+    "HTML5",
+    "drawing",
+    "spray",
+    "stroke",
+    "crayon",
+    "marker",
+    "ink",
+    "drip",
+    "graffiti"
+  ],
+  "engines": {
+    "node": ">= 0.4.4"
+  },
+  "homepage": "https://tennisonchan.github.com/fabric-brush",
+  "author": "Tennison Chan <tennison.chan+fabric-brush@gmail.com> (https://github.com/tennisonchan)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tennisonchan/fabric-brush.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tennisonchan/fabric-brush/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "~13.0.0",
+    "jshint": "~2.9.1",
+    "minifyify": "^7.3.1",
+    "rimraf": "~2.5.2"
+  }
+}

@@ -28,3 +28,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### NodeJS ###
+node_modules/
+
+### Bower ###
+bower_components/
