@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>fabric-brush by Tennison Chan</title>
+
+    <link rel="icon" type="image/png" href="demo/images/favicon.png"/>
+    <link rel="stylesheet" href="demo/stylesheets/normalize.css">
+
+    <link rel="stylesheet" href="demo/stylesheets/styles.css">
+    <link rel="stylesheet" href="demo/stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      body {
+        -webkit-user-select: none;
+      }
+
+      .canvas-container {
+        height: 100% !important;
+        left: 0;
+        overflow: hidden;
+        position: absolute !important;
+        top: 0;
+        width: 100% !important;
+        z-index: -1;
+        -webkit-user-select: initial !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Fabric Brushes</h1>
+        <p>Fabric Brush is a lib of brush built on an awesome canvas framework <a href="https://github.com/kangax/fabric.js">Fabric.js</a></p>
+
+        <p class="view"><a href="https://github.com/tennisonchan/fabric-brush">View the Project on GitHub <small>tennisonchan/fabric-brush</small></a></p>
+        <ul>
+          <li><a href="https://github.com/tennisonchan/fabric-brush/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/tennisonchan/fabric-brush/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/tennisonchan/fabric-brush">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <canvas id="fabric-brush-demo"></canvas>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/tennisonchan">Tennison Chan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="demo/javascripts/scale.fix.js"></script>
+    <script src="demo/javascripts/fabric.min.js"></script>
+    <script src="dist/fabric-brush.min.js"></script>
+    <script src="demo/javascripts/dat.gui.min.js"></script>
+    <script>
+      window.onload = function() {
+        window.brush = null;
+        var canvas = new fabric.Canvas("fabric-brush-demo", {
+          isDrawingMode: true,
+          hoverCursor: "pointer",
+          selection: false
+        })
+        .setWidth(window.screen.width)
+        .setHeight(window.screen.height);
+
+        function setupBrush(brushName, opt) {
+          canvas.freeDrawingBrush = new fabric[brushName](canvas, opt || {});
+        }
+
+        var gui = new dat.GUI();
+        gui.brushType = "InkBrush";
+        gui.brushWidth = 30;
+        gui.brushOpacity = 1;
+        gui.inkAmount = 7;
+        gui.brushColor = "#ff0000";
+
+        setupBrush(gui.brushType, {
+          width: gui.brushWidth,
+          opacity: gui.brushOpacity,
+          inkAmount: gui.inkAmount,
+          color: gui.brushColor
+        });
+
+        gui.clear = function(){
+          canvas.clearContext(canvas.contextTop);
+        }
+        gui.save = function() {
+          var dataURL = canvas.contextTop.canvas.toDataURL("image/png");
+          window.open(dataURL);
+        }
+
+        gui.add(gui, "brushType", ["CrayonBrush", "InkBrush", "MarkerBrush", "SprayBrush"])
+        .onFinishChange(setupBrush);
+        gui.add(gui, "brushWidth", 10, 100).step(5)
+          .onChange(function(value) {
+            canvas.freeDrawingBrush.width = value;
+          });
+        gui.addColor(gui, "brushColor")
+          .onChange(function(value) {
+            canvas.freeDrawingBrush.changeColor(value);
+          });
+        gui.add(gui, "brushOpacity", 0.1, 1).step(0.1)
+          .onChange(function(value) {
+            canvas.freeDrawingBrush.changeOpacity(value);
+          });
+        gui.add(gui, "inkAmount", 1, 10).step(0.1)
+          .onChange(function(value) {
+            canvas.freeDrawingBrush.inkAmount = value;
+          });
+        gui.add(gui, "save");
+        gui.add(gui, "clear");
+      };
+    </script>
+<!--     <script>
+      (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+
+      ga("create", "UA-73769270-2", "auto");
+      ga("send", "pageview");
+    </script> -->
+  </body>
+</html>
