@@ -7,10 +7,10 @@ Fabric Brush is a collection of brushes built on an awesome canvas framework Fab
 
 ## [Demo](https://tennisonchan.github.io/fabric-brush)
 
-[<img src="https://tennisonchan.github.io/fabric-brush/demo/images/crayon-brush.gif" alt="crayon-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
-[<img src="https://tennisonchan.github.io/fabric-brush/demo/images/ink-brush.gif" alt="ink-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
-[<img src="https://tennisonchan.github.io/fabric-brush/demo/images/marker-brush.gif" alt="marker-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
-[<img src="https://tennisonchan.github.io/fabric-brush/demo/images/spray-brush.gif" alt="spray-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
+[<img src="https://tennisonchan.github.io/fabric-brush/images/crayon-brush.gif" alt="crayon-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
+[<img src="https://tennisonchan.github.io/fabric-brush/images/ink-brush.gif" alt="ink-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
+[<img src="https://tennisonchan.github.io/fabric-brush/images/marker-brush.gif" alt="marker-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
+[<img src="https://tennisonchan.github.io/fabric-brush/images/spray-brush.gif" alt="spray-brush" width="432" height="270">](https://tennisonchan.github.io/fabric-brush)
 
 ### Examples of use
 Set the crayon brush as the free drawing brush

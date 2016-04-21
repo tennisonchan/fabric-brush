@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>fabric-brush by Tennison Chan</title>
 
-    <link rel="icon" type="image/png" href="demo/images/favicon.png"/>
-    <link rel="stylesheet" href="demo/stylesheets/normalize.css">
-
-    <link rel="stylesheet" href="demo/stylesheets/styles.css">
-    <link rel="stylesheet" href="demo/stylesheets/github-light.css">
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,10 +49,6 @@
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="demo/javascripts/scale.fix.js"></script>
-    <script src="demo/javascripts/fabric.min.js"></script>
-    <script src="dist/fabric-brush.min.js"></script>
-    <script src="demo/javascripts/dat.gui.min.js"></script>
     <script>
       window.onload = function() {
         window.brush = null;
@@ -64,6 +59,8 @@
         })
         .setWidth(window.screen.width)
         .setHeight(window.screen.height);
+
+        window.canvas = canvas;
 
         function setupBrush(brushName, opt) {
           canvas.freeDrawingBrush = new fabric[brushName](canvas, opt || {});
@@ -122,5 +119,27 @@
       ga("create", "UA-73769270-2", "auto");
       ga("send", "pageview");
     </script>
+    <script>
+      var metas = document.getElementsByTagName('meta');
+      var i;
+      if (navigator.userAgent.match(/iPhone/i)) {
+        for (i=0; i<metas.length; i++) {
+          if (metas[i].name == "viewport") {
+            metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+          }
+        }
+        document.addEventListener("gesturestart", gestureStart, false);
+      }
+      function gestureStart() {
+        for (i=0; i<metas.length; i++) {
+          if (metas[i].name == "viewport") {
+            metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+          }
+        }
+      }
+    </script>
+    <script src="bower_components/fabric.js/dist/fabric.min.js"></script>
+    <script src="bower_components/fabric-brush/dist/fabric-brush.min.js"></script>
+    <script src="bower_components/dat-gui/build/dat.gui.min.js"></script>
   </body>
 </html>

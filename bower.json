@@ -30,6 +30,9 @@
     "graffiti"
   ],
   "dependencies": {
-    "fabric.js": "fabric#^1.5.0"
+    "fabric.js": "fabric#^1.5.0",
+    "normalize-css": "normalize.css#^4.1.1",
+    "dat-gui": "^0.5.1",
+    "fabric-brush": "*"
   }
 }
